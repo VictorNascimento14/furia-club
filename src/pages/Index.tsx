@@ -6,15 +6,19 @@ import Quiz from "@/components/Quiz";
 import FanProfile from "@/components/FanProfile";
 import Ranking from "@/components/Ranking";
 import { GameProvider, useGameContext } from "@/context/GameContext";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, LogIn, UserPlus } from "lucide-react";
 import { famousQuotes } from "@/data/quizQuestions";
 import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
   const { currentPage, setCurrentPage, fanProfile } = useGameContext();
+  const { isAuthenticated, currentUser, logout } = useAuth();
   const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [randomQuote, setRandomQuote] = useState(famousQuotes[Math.floor(Math.random() * famousQuotes.length)]);
+  const navigate = useNavigate();
   
   useEffect(() => {
     // Create animation for the logo
@@ -62,7 +66,7 @@ const LandingPage = () => {
         <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_70%,rgba(0,255,255,0.05),transparent_60%)]"></div>
       </div>
       
-      {/* Header with audio controls */}
+      {/* Header with audio controls and auth */}
       <header className="flex justify-between items-center p-4 z-10">
         <button 
           className={`flex items-center gap-2 px-3 py-2 rounded-full ${audioPlaying ? "bg-furia-blue/20 text-furia-blue" : "bg-gray-800 text-gray-300"}`}
@@ -74,15 +78,45 @@ const LandingPage = () => {
           </span>
         </button>
         
-        {fanProfile && (
-          <Button 
-            variant="ghost" 
-            onClick={() => setCurrentPage("profile")} 
-            className="text-furia-blue hover:text-furia-blue hover:bg-gray-800/50"
-          >
-            Meu Perfil
-          </Button>
-        )}
+        <div className="flex items-center gap-2">
+          {isAuthenticated ? (
+            <>
+              {fanProfile && (
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setCurrentPage("profile")} 
+                  className="text-furia-blue hover:text-furia-blue hover:bg-gray-800/50"
+                >
+                  Meu Perfil
+                </Button>
+              )}
+              <Button
+                variant="outline"
+                onClick={logout}
+                className="border-furia-blue/50 text-furia-blue hover:bg-furia-blue/10"
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="ghost"
+                onClick={() => navigate("/auth/login")}
+                className="text-white hover:bg-gray-800/50"
+              >
+                <LogIn size={16} className="mr-2" /> Login
+              </Button>
+              
+              <Button
+                onClick={() => navigate("/auth/signup")}
+                className="bg-furia-blue/20 border border-furia-blue/50 text-furia-blue hover:bg-furia-blue/30"
+              >
+                <UserPlus size={16} className="mr-2" /> Cadastre-se
+              </Button>
+            </>
+          )}
+        </div>
       </header>
       
       {/* Main content */}
@@ -90,8 +124,10 @@ const LandingPage = () => {
         <div className="animate-float">
           <h1 
             id="furia-logo"
-            className="text-6xl md:text-7xl font-black mb-6 tracking-tighter"
+            className="text-6xl md:text-7xl font-black mb-6 tracking-tighter flex items-center justify-center"
           >
+            {/* Logo space reserved here */}
+            <div className="w-[60px] h-[60px] md:w-[80px] md:h-[80px] mr-2"></div>
             <span className="furia-title">FURIA</span>
           </h1>
           <p className="text-xl md:text-2xl font-bold mb-2 text-white/90">FAN FRENZY</p>
@@ -105,8 +141,9 @@ const LandingPage = () => {
           <Button 
             onClick={() => setCurrentPage(fanProfile ? "quiz" : "registration")} 
             className="furia-button text-lg flex items-center justify-center gap-2 py-6"
+            disabled={!isAuthenticated}
           >
-            {fanProfile ? "Começar Quiz" : "Entrar"} <ArrowRight />
+            {fanProfile ? "Começar Quiz" : "Cadastrar Perfil"} <ArrowRight />
           </Button>
           
           {fanProfile && (
@@ -116,6 +153,12 @@ const LandingPage = () => {
             >
               Ver Ranking
             </Button>
+          )}
+          
+          {!isAuthenticated && (
+            <p className="text-furia-blue text-sm">
+              Faça login ou cadastre-se para jogar!
+            </p>
           )}
         </div>
         

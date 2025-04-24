@@ -58,7 +58,7 @@
 
 @layer components {
   .furia-button {
-    @apply bg-furia-blue text-furia-dark font-bold py-3 px-6 rounded-md shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(0,255,255,0.7)];
+    @apply bg-furia-blue text-furia-dark font-bold py-3 px-6 rounded-md shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(0,255,255,0.7)] disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-none disabled:cursor-not-allowed;
   }
   
   .furia-card {
@@ -72,6 +72,19 @@
   .furia-title {
     @apply font-black text-transparent bg-clip-text bg-gradient-to-r from-furia-blue to-blue-300;
   }
+  
+  .furia-tab {
+    @apply w-full py-2 px-4 rounded-md text-center transition-all duration-200 text-gray-400 hover:text-white hover:bg-gray-800/50 data-[state=active]:bg-furia-blue/20 data-[state=active]:text-furia-blue data-[state=active]:font-medium;
+  }
+}
+
+/* Tabs styling */
+.tabs-list {
+  @apply inline-flex h-10 items-center justify-center rounded-md bg-gray-800/50 p-1 text-secondary-foreground;
+}
+
+.tabs-trigger {
+  @apply inline-flex items-center justify-center whitespace-nowrap px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-furia-blue/20 data-[state=active]:text-furia-blue data-[state=active]:shadow-sm;
 }
 
 audio::-webkit-media-controls-panel {
@@ -101,4 +114,18 @@ audio::-webkit-media-controls-play-button {
   background-color: #00FFFF;
   border-radius: 14px;
   border: 2px solid #0A0A0A;
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% { 
+    text-shadow: 0 0 5px #00FFFF, 0 0 20px #00FFFF;
+  }
+  50% { 
+    text-shadow: 0 0 20px #00FFFF, 0 0 30px #00FFFF, 0 0 40px #00FFFF;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
 }
