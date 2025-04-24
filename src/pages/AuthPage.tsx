@@ -7,7 +7,7 @@ import { Eye, EyeOff, LogIn, UserPlus } from "lucide-react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useGameContext } from "@/context/GameContext";
+import { GameProvider, useGameContext } from "@/context/GameContext";
 import {
   Form,
   FormControl,
@@ -337,7 +337,7 @@ const SignupForm = () => {
   );
 };
 
-const AuthPage = () => {
+const AuthPageContent = () => {
   const { isAuthenticated } = useAuth();
 
   if (isAuthenticated) {
@@ -348,7 +348,7 @@ const AuthPage = () => {
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-gray-900 to-black">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <h1 className="text-5xl font-black mb-4">
+          <h1 className="text-5xl font-black mb-4 text-center">
             <span className="furia-title">FURIA</span>
           </h1>
           <p className="text-xl font-bold mb-2 text-white/90">FAN FRENZY</p>
@@ -363,6 +363,14 @@ const AuthPage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const AuthPage = () => {
+  return (
+    <GameProvider>
+      <AuthPageContent />
+    </GameProvider>
   );
 };
 
