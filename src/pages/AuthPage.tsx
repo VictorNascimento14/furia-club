@@ -8,6 +8,7 @@ import { Eye, EyeOff, LogIn, UserPlus } from "lucide-react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useGameContext } from "@/context/GameContext";
 import {
   Form,
   FormControl,
@@ -125,6 +126,7 @@ const LoginForm = () => {
 
 const SignupForm = () => {
   const { signup } = useAuth();
+  const { setFanProfile } = useGameContext();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -133,6 +135,13 @@ const SignupForm = () => {
     name: z.string().min(2, { message: "O nome deve ter pelo menos 2 caracteres" }),
     email: z.string().email({ message: "Email inválido" }),
     password: z.string().min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
+    phone: z.string().optional(),
+    age: z.string()
+      .min(1, { message: "Idade é obrigatória" })
+      .refine((val) => !isNaN(Number(val)) && Number(val) > 0 && Number(val) < 120, {
+        message: "Idade deve ser um número entre 1 e 120"
+      }),
+    location: z.string().min(2, { message: "Localização é obrigatória" })
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -141,16 +150,38 @@ const SignupForm = () => {
       name: "",
       email: "",
       password: "",
+      phone: "",
+      age: "",
+      location: "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     const success = await signup(values.name, values.email, values.password);
-    setIsLoading(false);
     if (success) {
+      // Create fan profile
+      const newProfile = {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        phone: values.phone || "",
+        age: parseInt(values.age),
+        location: values.location,
+        points: 0,
+        fanType: "Rookie" as const,
+        medals: {
+          quizComplete: false,
+          perfectScore: false,
+          quickAnswer: false,
+          sharingSocial: false,
+          playAgain: false
+        }
+      };
+      setFanProfile(newProfile);
       navigate("/");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -220,6 +251,63 @@ const SignupForm = () => {
                       {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
                   </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Telefone (opcional)</FormLabel>
+                <FormControl>
+                  <Input
+                    className="furia-input"
+                    placeholder="Seu telefone"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="age"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Idade</FormLabel>
+                <FormControl>
+                  <Input
+                    className="furia-input"
+                    type="number"
+                    placeholder="Sua idade"
+                    min="1"
+                    max="120"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Localização</FormLabel>
+                <FormControl>
+                  <Input
+                    className="furia-input"
+                    placeholder="Sua cidade"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

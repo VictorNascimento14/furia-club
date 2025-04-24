@@ -126,9 +126,9 @@ const LandingPage = () => {
             id="furia-logo"
             className="text-6xl md:text-7xl font-black mb-6 tracking-tighter flex items-center justify-center"
           >
-            {/* Logo space reserved here */}
+            {/* Logo space with fixed dimensions */}
             <div className="w-[60px] h-[60px] md:w-[80px] md:h-[80px] mr-2"></div>
-            <span className="furia-title">FURIA</span>
+            <span className="furia-title text-center">FURIA</span>
           </h1>
           <p className="text-xl md:text-2xl font-bold mb-2 text-white/90">FAN FRENZY</p>
         </div>
