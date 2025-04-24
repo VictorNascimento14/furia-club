@@ -147,8 +147,9 @@ const LandingPage = () => {
             onClick={() => setCurrentPage(fanProfile ? "quiz" : "registration")} 
             className="furia-button text-lg flex items-center justify-center gap-2 py-6"
             disabled={!isAuthenticated}
+            
           >
-            {fanProfile ? "Começar Quiz" : "Cadastrar Perfil"} <ArrowRight />
+            {fanProfile ? "Começar Quiz" : "Torne-se um FURIOSO"}
           </Button>
           
           {fanProfile && (

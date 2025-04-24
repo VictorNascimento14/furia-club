@@ -1,73 +1,81 @@
-# Welcome to your Lovable project
+# 🦍 FURIA Club - Web App Interativo para Fãs de CS
 
-## Project info
+Bem-vindo ao **FURIA Club**, uma aplicação web desenvolvida especialmente para os fãs da FURIA, um dos maiores times de CS:GO do Brasil! 🎯
 
-**URL**: https://lovable.dev/projects/3aff5bd6-4366-4ff9-a636-49e18b77b110
+Esta plataforma oferece uma **experiência imersiva de comunidade**, com interface nostálgica inspirada no CS 1.6, e funcionalidades pensadas para engajar, entreter e informar os torcedores da FURIA.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## ✨ Funcionalidades
 
-**Use Lovable**
+- 🔐 **Sistema de Login/Registro** com armazenamento local
+  - Os dados dos usuários são salvos **localmente no navegador** (localStorage), sem necessidade de backend.
+- 💬 **Chat personalizado**
+  - Interface temática baseada em jogos da série Counter-Strike
+  - Ideal para trocar ideias com outros fãs
+- 📊 **Dashboard interativo**
+  - Acompanhe os próximos jogos, estatísticas, resultados e notícias da FURIA
+- 🧠 **Quiz interativo**
+  - Teste seus conhecimentos sobre a equipe e ganhe pontos!
+- 🔈 **Frases icônicas e áudios memoráveis**
+  - Clássicas falas dos jogos e momentos históricos da FURIA
+- 🏆 **Ranking de fãs**
+  - Interaja, pontue e suba no ranking entre os membros do clube
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3aff5bd6-4366-4ff9-a636-49e18b77b110) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Tecnologias Utilizadas
 
-**Use your preferred IDE**
+- **Frontend**: React + Vite
+- **Estilo**: Tailwind CSS + Radix UI
+- **Gerenciamento de formulários**: React Hook Form + Zod
+- **Validação**: Zod
+- **Componentes**: shadcn/ui, lucide-react
+- **Armazenamento**: `localStorage` (usuários e interações)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 📦 Instalação Local
 
-Follow these steps:
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/furia-club.git
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Entre na pasta do projeto
+cd furia-club
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Instale as dependências
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Rode a aplicação localmente
 npm run dev
-```
 
-**Edit a file directly in GitHub**
+🗂️ Estrutura do Projeto
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+furia-club/
+├── components/            # Componentes reutilizáveis
+├── pages/                 # Páginas principais da aplicação
+├── assets/                # Imagens e mídias
+├── styles/                # Estilos globais e configurações Tailwind
+├── utils/                 # Funções auxiliares
+├── localStorage/          # Gerenciamento local de dados dos usuários
+├── index.html             # HTML principal
+├── vite.config.ts         # Configuração do Vite
+└── package.json           # Dependências e scripts
 
-**Use GitHub Codespaces**
+💾 Armazenamento Local
+Todos os dados do usuário (login, pontuação, progresso nos quizzes, etc.) são salvos no localStorage do navegador. Isso significa:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Sem necessidade de conexão com banco de dados
 
-## What technologies are used for this project?
+Experiência rápida e offline
 
-This project is built with:
+Ideal para protótipos ou MVPs
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+🙌 Contribuições
+Quer contribuir com melhorias, novas funcionalidades ou correções? Fique à vontade para abrir uma issue ou fazer um pull request! 💻
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/3aff5bd6-4366-4ff9-a636-49e18b77b110) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+📢 Créditos
+Desenvolvido por fãs, para fãs.
+Inspirado pela paixão da torcida FURIA.
+Design nostálgico inspirado na era do CS 1.6.
