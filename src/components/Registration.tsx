@@ -5,34 +5,72 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useGameContext } from "@/context/GameContext";
 import { toast } from "sonner";
+import { Switch } from "@/components/ui/switch";
 
 const Registration: React.FC = () => {
   const { setFanProfile, setCurrentPage } = useGameContext();
-  const [name, setName] = useState<string>("");
-  const [age, setAge] = useState<string>("");
-  const [location, setLocation] = useState<string>("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    age: "",
+    location: "",
+    income: "",
+    showPassword: false
+  });
+
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const togglePasswordVisibility = () => {
+    setFormData(prev => ({ ...prev, showPassword: !prev.showPassword }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!name || !age || !location) {
-      toast.error("Por favor preencha todos os campos");
+    // Validate all required fields
+    if (!formData.name || !formData.email || !formData.password || !formData.age || !formData.location) {
+      toast.error("Por favor preencha todos os campos obrigatórios");
       return;
     }
 
-    if (parseInt(age) < 1 || parseInt(age) > 120) {
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Por favor digite um email válido");
+      return;
+    }
+
+    // Validate password match
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("As senhas não coincidem");
+      return;
+    }
+
+    // Validate age
+    if (parseInt(formData.age) < 1 || parseInt(formData.age) > 120) {
       toast.error("Por favor digite uma idade válida");
       return;
     }
     
     setIsSubmitting(true);
 
-    // Create the initial fan profile
+    // Create the initial fan profile with extended data
     const newProfile = {
-      name,
-      age: parseInt(age),
-      location,
+      name: formData.name,
+      email: formData.email,
+      password: formData.password, // In a real app, this should be handled securely
+      phone: formData.phone,
+      age: parseInt(formData.age),
+      location: formData.location,
+      income: formData.income,
       points: 0,
       fanType: "Rookie" as const,
       medals: {
@@ -64,24 +102,91 @@ const Registration: React.FC = () => {
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-furia-blue font-semibold">Nome</Label>
+              <Label htmlFor="name" className="text-furia-blue font-semibold">Nome *</Label>
               <Input
                 id="name"
+                name="name"
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={formData.name}
+                onChange={handleInputChange}
                 className="furia-input"
                 placeholder="Digite seu nome"
               />
             </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-furia-blue font-semibold">Email *</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="furia-input"
+                placeholder="Digite seu email"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-furia-blue font-semibold">Senha *</Label>
+              <div className="relative">
+                <Input
+                  id="password"
+                  name="password"
+                  type={formData.showPassword ? "text" : "password"}
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  className="furia-input"
+                  placeholder="Digite sua senha"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword" className="text-furia-blue font-semibold">Confirmar Senha *</Label>
+              <div className="relative">
+                <Input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={formData.showPassword ? "text" : "password"}
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
+                  className="furia-input"
+                  placeholder="Confirme sua senha"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="show-password"
+                checked={formData.showPassword}
+                onCheckedChange={togglePasswordVisibility}
+              />
+              <Label htmlFor="show-password">Mostrar senha</Label>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="phone" className="text-furia-blue font-semibold">Telefone</Label>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="furia-input"
+                placeholder="Digite seu telefone"
+              />
+            </div>
             
             <div className="space-y-2">
-              <Label htmlFor="age" className="text-furia-blue font-semibold">Idade</Label>
+              <Label htmlFor="age" className="text-furia-blue font-semibold">Idade *</Label>
               <Input
                 id="age"
+                name="age"
                 type="number"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
+                value={formData.age}
+                onChange={handleInputChange}
                 className="furia-input"
                 placeholder="Digite sua idade"
                 min="1"
@@ -90,14 +195,28 @@ const Registration: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="location" className="text-furia-blue font-semibold">Localização</Label>
+              <Label htmlFor="location" className="text-furia-blue font-semibold">Localização *</Label>
               <Input
                 id="location"
+                name="location"
                 type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                value={formData.location}
+                onChange={handleInputChange}
                 className="furia-input"
                 placeholder="Digite sua cidade"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="income" className="text-furia-blue font-semibold">Renda Mensal</Label>
+              <Input
+                id="income"
+                name="income"
+                type="text"
+                value={formData.income}
+                onChange={handleInputChange}
+                className="furia-input"
+                placeholder="Digite sua renda mensal"
               />
             </div>
             

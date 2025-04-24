@@ -13,8 +13,12 @@ type Medals = {
 
 type FanProfile = {
   name: string;
+  email: string;
+  password: string;
+  phone: string;
   age: number;
   location: string;
+  income: string;
   points: number;
   fanType: FanType;
   medals: Medals;
