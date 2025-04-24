@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+        furia: {
+          blue: '#00FFFF',
+          dark: '#0A0A0A',
+          light: '#FFFFFF',
+          silver: '#C0C0C0',
+        }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,12 +91,31 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+        'pulse-glow': {
+          '0%, 100%': { 
+            textShadow: '0 0 5px #00FFFF, 0 0 20px #00FFFF',
+            boxShadow: '0 0 10px #00FFFF'
+          },
+          '50%': { 
+            textShadow: '0 0 20px #00FFFF, 0 0 30px #00FFFF',
+            boxShadow: '0 0 20px #00FFFF'
+          },
+        },
+        'float': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+        'pulse-glow': 'pulse-glow 2s infinite',
+        'float': 'float 3s ease-in-out infinite',
+			},
+      backgroundImage: {
+        'furia-gradient': 'linear-gradient(to bottom right, #0A0A0A, #1A1A1A)',
+      }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
