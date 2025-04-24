@@ -207,18 +207,6 @@ const Registration: React.FC = () => {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="income" className="text-furia-blue font-semibold">Renda Mensal</Label>
-              <Input
-                id="income"
-                name="income"
-                type="text"
-                value={formData.income}
-                onChange={handleInputChange}
-                className="furia-input"
-                placeholder="Digite sua renda mensal"
-              />
-            </div>
             
             <div className="pt-4">
               <Button 

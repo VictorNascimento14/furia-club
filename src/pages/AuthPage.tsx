@@ -370,14 +370,14 @@ const AuthPageContent = () => {
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <img 
-            src="https://images.unsplash.com/photo-1582562124811-c09040d0a901" 
+            src="/public/Furia_Esports_logo.png" 
             alt="FURIA Logo" 
-            className="mx-auto mb-4 w-32 h-32 object-cover rounded-full shadow-lg"
+            className="mx-auto mb-4 w-40 h-40 object-cover rounded-full shadow-lg"
           />
           <h1 className="text-5xl font-black mb-4 text-center">
             <span className="furia-title">FURIA</span>
           </h1>
-          <p className="text-xl font-bold mb-2 text-white/90">FAN FRENZY</p>
+          <p className="text-xl font-bold mb-2 text-white/90">FURIA CLUB</p>
         </div>
 
         <div className="furia-card">

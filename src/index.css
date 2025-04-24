@@ -70,7 +70,7 @@
   }
   
   .furia-title {
-    @apply font-black text-transparent bg-clip-text bg-gradient-to-r from-furia-blue to-blue-300;
+    @apply font-black text-transparent bg-clip-text bg-gradient-to-r from-furia-blue to-blue-100;
   }
   
   .furia-tab {
