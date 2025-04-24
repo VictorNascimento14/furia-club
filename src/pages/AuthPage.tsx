@@ -3,7 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate, Routes, Route, Navigate } from "react-router-dom";
-import { Eye, EyeOff, LogIn, UserPlus } from "lucide-react";
+import { Eye, EyeOff, LogIn, UserPlus, X, ArrowLeft } from "lucide-react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,9 +46,20 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-md relative">
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="absolute top-0 left-0 text-gray-400 hover:text-white" 
+        onClick={() => navigate("/")}
+      >
+        <ArrowLeft size={24} />
+      </Button>
+
       <div className="mb-8 text-center">
-        <h1 className="text-2xl font-bold mb-2">Login</h1>
+        <h1 className="text-5xl font-black mb-4 text-center">
+          <span className="furia-title">FURIA</span>
+        </h1>
         <p className="text-gray-400">Acesse sua conta de fã FURIA</p>
       </div>
 
@@ -159,7 +170,6 @@ const SignupForm = () => {
     setIsLoading(true);
     const success = await signup(values.name, values.email, values.password);
     if (success) {
-      // Create fan profile
       const newProfile = {
         name: values.name,
         email: values.email,
@@ -167,7 +177,7 @@ const SignupForm = () => {
         phone: values.phone || "",
         age: parseInt(values.age),
         location: values.location,
-        income: "", // Add default empty income to satisfy the type requirement
+        income: "",
         points: 0,
         fanType: "Rookie" as const,
         medals: {
@@ -185,9 +195,20 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-md relative">
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="absolute top-0 left-0 text-gray-400 hover:text-white" 
+        onClick={() => navigate("/auth/login")}
+      >
+        <ArrowLeft size={24} />
+      </Button>
+
       <div className="mb-8 text-center">
-        <h1 className="text-2xl font-bold mb-2">Criar Conta</h1>
+        <h1 className="text-5xl font-black mb-4 text-center">
+          <span className="furia-title">FURIA</span>
+        </h1>
         <p className="text-gray-400">Junte-se à comunidade de fãs da FURIA</p>
       </div>
 
@@ -348,6 +369,11 @@ const AuthPageContent = () => {
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-gray-900 to-black">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
+          <img 
+            src="https://images.unsplash.com/photo-1582562124811-c09040d0a901" 
+            alt="FURIA Logo" 
+            className="mx-auto mb-4 w-32 h-32 object-cover rounded-full shadow-lg"
+          />
           <h1 className="text-5xl font-black mb-4 text-center">
             <span className="furia-title">FURIA</span>
           </h1>
