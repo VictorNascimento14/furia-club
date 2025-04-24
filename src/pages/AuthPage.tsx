@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -168,6 +167,7 @@ const SignupForm = () => {
         phone: values.phone || "",
         age: parseInt(values.age),
         location: values.location,
+        income: "", // Add default empty income to satisfy the type requirement
         points: 0,
         fanType: "Rookie" as const,
         medals: {
