@@ -128,7 +128,7 @@ const LandingPage = () => {
             {/* Espaço para o logo com dimensões fixas */}
             <div className="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center mr-2">
               <img 
-                src="/public/Furia_Esports_logo.png" 
+                src="/Furia_Esports_logo.png" 
                 alt="FURIA Logo" 
                 className="w-full h-full object-contain"
               />
@@ -186,7 +186,7 @@ const LandingPage = () => {
         loop
         className="hidden"
       >
-        <source src="/public/gamestartup.mp3" type="audio/mpeg" />
+        <source src="/gamestartup.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
     </div>

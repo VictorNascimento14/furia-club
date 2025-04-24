@@ -370,7 +370,7 @@ const AuthPageContent = () => {
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <img 
-            src="/public/Furia_Esports_logo.png" 
+            src="/Furia_Esports_logo.png" 
             alt="FURIA Logo" 
             className="mx-auto mb-4 w-40 h-40 object-cover rounded-full shadow-lg"
           />
