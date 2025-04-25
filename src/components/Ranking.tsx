@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useGameContext } from "@/context/GameContext";
@@ -76,10 +75,10 @@ const Ranking: React.FC = () => {
                     <span className={`
                       text-xs px-2 py-1 rounded-full 
                       ${profile.fanType === "FURIA Elite" ? "bg-yellow-400/20 text-yellow-300" : ""}
-                      ${profile.fanType === "Legend" ? "bg-purple-400/20 text-purple-300" : ""}
-                      ${profile.fanType === "Veteran" ? "bg-blue-400/20 text-blue-300" : ""}
-                      ${profile.fanType === "Dedicated" ? "bg-green-400/20 text-green-300" : ""}
-                      ${profile.fanType === "Rookie" ? "bg-gray-400/20 text-gray-300" : ""}
+                      ${profile.fanType === "Lenda" ? "bg-purple-400/20 text-purple-300" : ""}
+                      ${profile.fanType === "Veterano" ? "bg-blue-400/20 text-blue-300" : ""}
+                      ${profile.fanType === "Dedicado" ? "bg-green-400/20 text-green-300" : ""}
+                      ${profile.fanType === "Iniciante" ? "bg-gray-400/20 text-gray-300" : ""}
                     `}>
                       {profile.fanType.charAt(0)}
                     </span>

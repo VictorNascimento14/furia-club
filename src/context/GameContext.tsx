@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { toast } from "sonner";
 
-type FanType = "Rookie" | "Dedicated" | "Veteran" | "Legend" | "FURIA Elite";
+type FanType = "Iniciante" | "Dedicado" | "Veterano" | "Lenda" | "FURIA Elite";
 
 type Medals = {
   quizComplete: boolean;
@@ -60,9 +60,9 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [rankings, setRankings] = useState<FanProfile[]>([
     { name: "Art", email: "art@furia.com", password: "", phone: "(11) 99999-1111", age: 27, location: "São Paulo", income: "5000-10000", points: 100, fanType: "FURIA Elite", medals: { quizComplete: true, perfectScore: true, quickAnswer: true, sharingSocial: true, playAgain: true } },
     { name: "KSCERATO", email: "kscerato@furia.com", password: "", phone: "(11) 99999-2222", age: 24, location: "Rio de Janeiro", income: "5000-10000", points: 95, fanType: "FURIA Elite", medals: { quizComplete: true, perfectScore: true, quickAnswer: true, sharingSocial: true, playAgain: false } },
-    { name: "yuurih", email: "yuurih@furia.com", password: "", phone: "(11) 99999-3333", age: 23, location: "Salvador", income: "5000-10000", points: 90, fanType: "Legend", medals: { quizComplete: true, perfectScore: true, quickAnswer: true, sharingSocial: false, playAgain: true } },
-    { name: "drop", email: "drop@furia.com", password: "", phone: "(11) 99999-4444", age: 28, location: "Belo Horizonte", income: "5000-10000", points: 85, fanType: "Legend", medals: { quizComplete: true, perfectScore: true, quickAnswer: false, sharingSocial: true, playAgain: true } },
-    { name: "chelo", email: "chelo@furia.com", password: "", phone: "(11) 99999-5555", age: 25, location: "Curitiba", income: "5000-10000", points: 80, fanType: "Veteran", medals: { quizComplete: true, perfectScore: false, quickAnswer: true, sharingSocial: true, playAgain: true } },
+    { name: "yuurih", email: "yuurih@furia.com", password: "", phone: "(11) 99999-3333", age: 23, location: "Salvador", income: "5000-10000", points: 90, fanType: "Lenda", medals: { quizComplete: true, perfectScore: true, quickAnswer: true, sharingSocial: false, playAgain: true } },
+    { name: "drop", email: "drop@furia.com", password: "", phone: "(11) 99999-4444", age: 28, location: "Belo Horizonte", income: "5000-10000", points: 85, fanType: "Lenda", medals: { quizComplete: true, perfectScore: true, quickAnswer: false, sharingSocial: true, playAgain: true } },
+    { name: "chelo", email: "chelo@furia.com", password: "", phone: "(11) 99999-5555", age: 25, location: "Curitiba", income: "5000-10000", points: 80, fanType: "Veterano", medals: { quizComplete: true, perfectScore: false, quickAnswer: true, sharingSocial: true, playAgain: true } },
   ]);
 
   // Load user profile when auth state changes
