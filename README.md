@@ -2,7 +2,7 @@
 
 Bem-vindo ao **FURIA Club**, uma aplicação web desenvolvida especialmente para os fãs da FURIA, um dos maiores times de CS:GO do Brasil! 🎯
 
-Esta plataforma oferece uma **experiência imersiva de comunidade**, com interface nostálgica inspirada no CS 1.6, e funcionalidades pensadas para engajar, entreter e informar os torcedores da FURIA.
+Esta plataforma oferece uma **experiência imersiva de comunidade**, funcionalidades pensadas para engajar, entreter e informar os torcedores da FURIA.
 
 ---
 
@@ -11,7 +11,6 @@ Esta plataforma oferece uma **experiência imersiva de comunidade**, com interfa
 - 🔐 **Sistema de Login/Registro** com armazenamento local
   - Os dados dos usuários são salvos **localmente no navegador** (localStorage), sem necessidade de backend.
 - 💬 **Chat personalizado**
-  - Interface temática baseada em jogos da série Counter-Strike
   - Ideal para trocar ideias com outros fãs
 - 📊 **Dashboard interativo**
   - Acompanhe os próximos jogos, estatísticas, resultados e notícias da FURIA
@@ -78,4 +77,3 @@ Quer contribuir com melhorias, novas funcionalidades ou correções? Fique à vo
 📢 Créditos
 Desenvolvido por fãs, para fãs.
 Inspirado pela paixão da torcida FURIA.
-Design nostálgico inspirado na era do CS 1.6.
