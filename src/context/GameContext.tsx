@@ -58,11 +58,13 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   
   // Mock rankings data
   const [rankings, setRankings] = useState<FanProfile[]>([
-    { name: "Art", email: "art@furia.com", password: "", phone: "(11) 99999-1111", age: 27, location: "São Paulo", income: "5000-10000", points: 100, fanType: "FURIA Elite", medals: { quizComplete: true, perfectScore: true, quickAnswer: true, sharingSocial: true, playAgain: true } },
-    { name: "KSCERATO", email: "kscerato@furia.com", password: "", phone: "(11) 99999-2222", age: 24, location: "Rio de Janeiro", income: "5000-10000", points: 95, fanType: "FURIA Elite", medals: { quizComplete: true, perfectScore: true, quickAnswer: true, sharingSocial: true, playAgain: false } },
-    { name: "yuurih", email: "yuurih@furia.com", password: "", phone: "(11) 99999-3333", age: 23, location: "Salvador", income: "5000-10000", points: 90, fanType: "Lenda", medals: { quizComplete: true, perfectScore: true, quickAnswer: true, sharingSocial: false, playAgain: true } },
-    { name: "drop", email: "drop@furia.com", password: "", phone: "(11) 99999-4444", age: 28, location: "Belo Horizonte", income: "5000-10000", points: 85, fanType: "Lenda", medals: { quizComplete: true, perfectScore: true, quickAnswer: false, sharingSocial: true, playAgain: true } },
-    { name: "chelo", email: "chelo@furia.com", password: "", phone: "(11) 99999-5555", age: 25, location: "Curitiba", income: "5000-10000", points: 80, fanType: "Veterano", medals: { quizComplete: true, perfectScore: false, quickAnswer: true, sharingSocial: true, playAgain: true } },
+    { name: "KZMOLODOY", email: "kzmolodoy@furia.com", password: "", phone: "(11) 99999-1111", age: 27, location: "São Paulo", income: "5000-10000", points: 100, fanType: "FURIA Elite", medals: { quizComplete: true, perfectScore: true, quickAnswer: true, sharingSocial: true, playAgain: true } },
+    { name: "LVYEKINDAR", email: "lvyekindar@furia.com", password: "", phone: "(11) 99999-2222", age: 24, location: "Rio de Janeiro", income: "5000-10000", points: 95, fanType: "FURIA Elite", medals: { quizComplete: true, perfectScore: true, quickAnswer: true, sharingSocial: true, playAgain: false } },
+    { name: "FalleN", email: "fallen@furia.com", password: "", phone: "(11) 99999-3333", age: 32, location: "Salvador", income: "5000-10000", points: 90, fanType: "Lenda", medals: { quizComplete: true, perfectScore: true, quickAnswer: true, sharingSocial: false, playAgain: true } },
+    { name: "KSCERATO", email: "kscerato@furia.com", password: "", phone: "(11) 99999-4444", age: 28, location: "Belo Horizonte", income: "5000-10000", points: 85, fanType: "Lenda", medals: { quizComplete: true, perfectScore: true, quickAnswer: false, sharingSocial: true, playAgain: true } },
+    { name: "yuurih", email: "yuurih@furia.com", password: "", phone: "(11) 99999-5555", age: 25, location: "Curitiba", income: "5000-10000", points: 80, fanType: "Veterano", medals: { quizComplete: true, perfectScore: false, quickAnswer: true, sharingSocial: true, playAgain: true } },
+    { name: "skullz", email: "skullz@furia.com", password: "", phone: "(11) 99999-6666", age: 23, location: "Porto Alegre", income: "5000-10000", points: 75, fanType: "Veterano", medals: { quizComplete: true, perfectScore: false, quickAnswer: true, sharingSocial: false, playAgain: true } },
+    { name: "chelo", email: "chelo@furia.com", password: "", phone: "(11) 99999-7777", age: 26, location: "Recife", income: "5000-10000", points: 70, fanType: "Dedicado", medals: { quizComplete: true, perfectScore: false, quickAnswer: false, sharingSocial: true, playAgain: true } },
   ]);
 
   // Load user profile when auth state changes
@@ -120,10 +122,10 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Update fan type based on points
   const updateFanType = (points: number): FanType => {
     if (points >= 100) return "FURIA Elite";
-    if (points >= 75) return "Legend";
-    if (points >= 50) return "Veteran";
-    if (points >= 25) return "Dedicated";
-    return "Rookie";
+    if (points >= 75) return "Lenda";
+    if (points >= 50) return "Veterano";
+    if (points >= 25) return "Dedicado";
+    return "Iniciante";
   };
 
   // Update points and fan type

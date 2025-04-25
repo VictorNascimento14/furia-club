@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useGameContext } from "@/context/GameContext";
@@ -16,6 +15,8 @@ const Quiz: React.FC = () => {
   const [answers, setAnswers] = useState<boolean[]>([]);
   const [startTime, setStartTime] = useState<number>(Date.now());
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [showScore, setShowScore] = useState(false);
+  const [recentMedals, setRecentMedals] = useState<Set<string>>(new Set());
   
   // Start timer when component mounts
   useEffect(() => {
@@ -40,6 +41,16 @@ const Quiz: React.FC = () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [currentQuestion]);
+  
+  useEffect(() => {
+    if (timeLeft === 0) {
+      toast.error("Tempo esgotado!", {
+        description: "Tente novamente!"
+      });
+      setIsAnswered(true);
+      setSelectedAnswer(null);
+    }
+  }, [timeLeft]);
   
   const handleAnswer = (answer: string) => {
     if (isAnswered) return;
@@ -70,10 +81,56 @@ const Quiz: React.FC = () => {
         setScore((prev) => prev + 5);
       }
       
-      toast.success("Resposta correta!");
+      toast.success("Resposta correta!", {
+        description: `+${10 + Math.floor(timeLeft / 2)} pontos`
+      });
     } else {
       toast.error("Resposta incorreta");
     }
+
+    const timer = setTimeout(() => {
+      if (currentQuestion === quizQuestions.length - 1) {
+        const endTime = Date.now();
+        const timeTaken = (endTime - startTime) / 1000; // tempo em segundos
+        
+        // Medalha de conclusão do quiz
+        addMedal("quizComplete");
+        const newRecentMedals = new Set(recentMedals);
+        newRecentMedals.add("quizComplete");
+        
+        toast.success("Parabéns!", {
+          description: "Você completou o quiz!",
+        });
+        updatePoints(score);
+
+        // Medalha de pontuação perfeita
+        if (score + (isCorrect ? 1 : 0) === quizQuestions.length) {
+          addMedal("perfectScore");
+          newRecentMedals.add("perfectScore");
+          toast.success("Impressionante!", {
+            description: "Pontuação perfeita!",
+          });
+          updatePoints(10);
+        }
+
+        // Medalha de resposta rápida (menos de 2 minutos)
+        if (timeTaken < 120) {
+          addMedal("quickAnswer");
+          newRecentMedals.add("quickAnswer");
+          toast.success("Velocidade Incrível!", {
+            description: "Resposta super rápida!",
+          });
+          updatePoints(10);
+        }
+
+        setRecentMedals(newRecentMedals);
+        setShowScore(true);
+        setQuizCompleted(true);
+        setCurrentPage("profile");
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
   };
   
   const nextQuestion = () => {
@@ -82,36 +139,20 @@ const Quiz: React.FC = () => {
       setSelectedAnswer(null);
       setIsAnswered(false);
       setTimeLeft(30);
-    } else {
-      // Quiz completed
-      const correctAnswers = answers.filter(Boolean).length;
-      updatePoints(score);
-      
-      // Award medals
-      addMedal("quizComplete");
-      
-      if (correctAnswers === quizQuestions.length) {
-        toast("Medalha desbloqueada: Pontuação Perfeita! +10 pontos", {
-          icon: <Award className="text-yellow-400" />,
-        });
-        addMedal("perfectScore");
-      }
-      
-      const totalTime = (Date.now() - startTime) / 1000;
-      if (totalTime < 90) { // Completed in less than 90 seconds
-        toast("Medalha desbloqueada: Respostas Rápidas! +10 pontos", {
-          icon: <Award className="text-yellow-400" />,
-        });
-        addMedal("quickAnswer");
-      }
-      
-      setQuizCompleted(true);
-      setCurrentPage("profile");
     }
   };
   
   // Calculate progress
   const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+  
+  const handleAnswerSubmit = () => {
+    if (!selectedAnswer) {
+      toast.error("Por favor, selecione uma resposta");
+      return;
+    }
+
+    handleAnswer(selectedAnswer);
+  };
   
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-gray-900 to-black">

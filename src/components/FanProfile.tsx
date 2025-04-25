@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useGameContext } from "@/context/GameContext";
 import { Trophy, Award, Flag, Share, RefreshCw, Clock, MessageSquare, Gamepad, User } from "lucide-react";
@@ -9,6 +8,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const FanProfile: React.FC = () => {
   const { fanProfile, setCurrentPage, addMedal } = useGameContext();
   const [showShareOptions, setShowShareOptions] = useState<boolean>(false);
+  const [recentMedals, setRecentMedals] = useState<Set<string>>(new Set());
+  
+  // Efeito para limpar medalhas recentes após 5 segundos
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setRecentMedals(new Set());
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [recentMedals]);
   
   if (!fanProfile) {
     return (
@@ -28,13 +36,13 @@ const FanProfile: React.FC = () => {
   
   const getFanTypeDescription = () => {
     switch (fanType) {
-      case "Rookie":
+      case "Iniciante":
         return "Você está começando sua jornada como fã da FURIA. Continue participando para subir de nível!";
-      case "Dedicated":
+      case "Dedicado":
         return "Você é um fã dedicado da FURIA. Está no caminho certo!";
-      case "Veteran":
+      case "Veterano":
         return "Você é um veterano entre os fãs da FURIA. Seu conhecimento impressiona!";
-      case "Legend":
+      case "Lenda":
         return "Você é uma lenda entre os fãs da FURIA. Poucos conhecem o time tão bem!";
       case "FURIA Elite":
         return "Você faz parte da elite dos fãs da FURIA. Seu conhecimento e dedicação são incomparáveis!";
@@ -45,13 +53,13 @@ const FanProfile: React.FC = () => {
   
   const getFanTypeColor = () => {
     switch (fanType) {
-      case "Rookie":
+      case "Iniciante":
         return "from-gray-400 to-gray-300";
-      case "Dedicated":
+      case "Dedicado":
         return "from-green-400 to-green-300";
-      case "Veteran":
+      case "Veterano":
         return "from-blue-400 to-blue-300";
-      case "Legend":
+      case "Lenda":
         return "from-purple-400 to-purple-300";
       case "FURIA Elite":
         return "from-yellow-400 to-yellow-300";
@@ -107,6 +115,11 @@ const FanProfile: React.FC = () => {
     mensagens: 156,
     quizzesCompletos: 7,
     jogosAssistidos: 23,
+  };
+  
+  // Função para verificar se uma medalha foi recentemente conquistada
+  const isRecentMedal = (medalKey: string) => {
+    return recentMedals.has(medalKey);
   };
   
   return (
@@ -214,31 +227,51 @@ const FanProfile: React.FC = () => {
             </h2>
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              <div className={`p-3 rounded-lg text-sm flex flex-col items-center text-center ${medals.quizComplete ? "bg-furia-blue/20 border border-furia-blue/50" : "bg-gray-800 opacity-50"}`}>
+              <div className={`p-3 rounded-lg text-sm flex flex-col items-center text-center transition-all duration-500 ${
+                medals.quizComplete 
+                  ? `bg-furia-blue/20 border border-furia-blue/50 ${isRecentMedal('quizComplete') ? 'scale-110 shadow-lg shadow-furia-blue/20 animate-pulse' : ''}` 
+                  : "bg-gray-800 opacity-50"
+              }`}>
                 <Award size={24} className={medals.quizComplete ? "text-furia-blue" : "text-gray-400"} />
                 <span className="font-bold block mt-2">Quiz Completo</span>
                 <span className="text-xs">Concluiu o quiz da FURIA</span>
               </div>
               
-              <div className={`p-3 rounded-lg text-sm flex flex-col items-center text-center ${medals.perfectScore ? "bg-furia-blue/20 border border-furia-blue/50" : "bg-gray-800 opacity-50"}`}>
+              <div className={`p-3 rounded-lg text-sm flex flex-col items-center text-center transition-all duration-500 ${
+                medals.perfectScore 
+                  ? `bg-furia-blue/20 border border-furia-blue/50 ${isRecentMedal('perfectScore') ? 'scale-110 shadow-lg shadow-furia-blue/20 animate-pulse' : ''}` 
+                  : "bg-gray-800 opacity-50"
+              }`}>
                 <Trophy size={24} className={medals.perfectScore ? "text-furia-blue" : "text-gray-400"} />
                 <span className="font-bold block mt-2">Pontuação Perfeita</span>
                 <span className="text-xs">Acertou todas as perguntas</span>
               </div>
               
-              <div className={`p-3 rounded-lg text-sm flex flex-col items-center text-center ${medals.quickAnswer ? "bg-furia-blue/20 border border-furia-blue/50" : "bg-gray-800 opacity-50"}`}>
+              <div className={`p-3 rounded-lg text-sm flex flex-col items-center text-center transition-all duration-500 ${
+                medals.quickAnswer 
+                  ? `bg-furia-blue/20 border border-furia-blue/50 ${isRecentMedal('quickAnswer') ? 'scale-110 shadow-lg shadow-furia-blue/20 animate-pulse' : ''}` 
+                  : "bg-gray-800 opacity-50"
+              }`}>
                 <Clock size={24} className={medals.quickAnswer ? "text-furia-blue" : "text-gray-400"} />
                 <span className="font-bold block mt-2">Respostas Rápidas</span>
                 <span className="text-xs">Completou o quiz rapidamente</span>
               </div>
               
-              <div className={`p-3 rounded-lg text-sm flex flex-col items-center text-center ${medals.sharingSocial ? "bg-furia-blue/20 border border-furia-blue/50" : "bg-gray-800 opacity-50"}`}>
+              <div className={`p-3 rounded-lg text-sm flex flex-col items-center text-center transition-all duration-500 ${
+                medals.sharingSocial 
+                  ? `bg-furia-blue/20 border border-furia-blue/50 ${isRecentMedal('sharingSocial') ? 'scale-110 shadow-lg shadow-furia-blue/20 animate-pulse' : ''}` 
+                  : "bg-gray-800 opacity-50"
+              }`}>
                 <Share size={24} className={medals.sharingSocial ? "text-furia-blue" : "text-gray-400"} />
                 <span className="font-bold block mt-2">Compartilhador</span>
                 <span className="text-xs">Compartilhou seu perfil</span>
               </div>
               
-              <div className={`p-3 rounded-lg text-sm flex flex-col items-center text-center ${medals.playAgain ? "bg-furia-blue/20 border border-furia-blue/50" : "bg-gray-800 opacity-50"}`}>
+              <div className={`p-3 rounded-lg text-sm flex flex-col items-center text-center transition-all duration-500 ${
+                medals.playAgain 
+                  ? `bg-furia-blue/20 border border-furia-blue/50 ${isRecentMedal('playAgain') ? 'scale-110 shadow-lg shadow-furia-blue/20 animate-pulse' : ''}` 
+                  : "bg-gray-800 opacity-50"
+              }`}>
                 <RefreshCw size={24} className={medals.playAgain ? "text-furia-blue" : "text-gray-400"} />
                 <span className="font-bold block mt-2">Fanático</span>
                 <span className="text-xs">Jogou o quiz mais de uma vez</span>
