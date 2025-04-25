@@ -69,7 +69,7 @@ const FanProfile: React.FC = () => {
   
   const handleShare = (platform: string) => {
     // Share content
-    const shareText = `Sou um fã da FURIA tipo ${fanType} com ${points} pontos! #FURIAFanFrenzy`;
+    const shareText = `Sou um fã da FURIA tipo ${fanType} com ${points} pontos! #FURIACLUB`;
     const shareUrl = window.location.href;
     
     let shareLink = "";
