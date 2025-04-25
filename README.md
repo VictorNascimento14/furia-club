@@ -10,8 +10,6 @@ Esta plataforma oferece uma **experiência imersiva de comunidade**, funcionalid
 
 - 🔐 **Sistema de Login/Registro** com armazenamento local
   - Os dados dos usuários são salvos **localmente no navegador** (localStorage), sem necessidade de backend.
-- 💬 **Chat personalizado**
-  - Ideal para trocar ideias com outros fãs
 - 📊 **Dashboard interativo**
   - Acompanhe os próximos jogos, estatísticas, resultados e notícias da FURIA
 - 🧠 **Quiz interativo**
